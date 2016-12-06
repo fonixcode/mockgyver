@@ -66,6 +66,7 @@
 %% @end
 %%--------------------------------------------------------------------
 start(_StartType, _StartArgs) ->
+    ets:new(mockgyver_beam_cache, [public, named_table]),
     case mockgyver_sup:start_link() of
         {ok, _Pid} = OkRes ->
             OkRes;

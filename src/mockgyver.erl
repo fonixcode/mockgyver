@@ -1103,7 +1103,13 @@ reload_mod_under_different_name(Mod) ->
     {module, Mod} = code:ensure_loaded(Mod),
     {Mod, _OrigBin0, Filename} = code:get_object_code(Mod),
     OrigMod = list_to_atom(atom_to_list(Mod)++"^"),
-    OrigBin = rename(Mod, OrigMod),
+    OrigBin = case ets:lookup(mockgyver_beam_cache, Mod) of 
+      [] -> Bin = rename(Mod, OrigMod),
+            ets:insert(mockgyver_beam_cache, {Mod, Bin}),
+            Bin;
+      [{_, Bin}] -> Bin
+    end,
+
     unload_mod(Mod),
     {module, OrigMod} = code:load_binary(OrigMod, Filename, OrigBin),
     OrigMod.
