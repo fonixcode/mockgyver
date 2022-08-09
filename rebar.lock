@@ -1,3 +1,14 @@
+{"1.2.0",
 [{<<"eunit_addons">>,{pkg,<<"eunit_addons">>,<<"0.3.0">>},0},
- {<<"meck">>,{pkg,<<"meck">>,<<"0.8.4">>},0},
- {<<"parse_trans">>,{pkg,<<"parse_trans">>,<<"3.0.0">>},0}].
+ {<<"meck">>,{pkg,<<"meck">>,<<"0.8.13">>},0},
+ {<<"parse_trans">>,{pkg,<<"parse_trans">>,<<"3.0.0">>},0}]}.
+[
+{pkg_hash,[
+ {<<"eunit_addons">>, <<"AB6A240F34486AA1CD722A39DB22F21FB7FF77AE872E2EEDBBBCC68E4A0CA1D0">>},
+ {<<"meck">>, <<"FFEDB39F99B0B99703B8601C6F17C7F76313EE12DE6B646E671E3188401F7866">>},
+ {<<"parse_trans">>, <<"9E96B1C9C3A0DF54E7B76F8F685D38BFA1EB21B31E042B1D1A5A70258E4DB1E3">>}]},
+{pkg_hash_ext,[
+ {<<"eunit_addons">>, <<"6D3255451F920D43954A0DD760D4175774FC305872EB44708F601630B82B0EB0">>},
+ {<<"meck">>, <<"D34F013C156DB51AD57CC556891B9720E6A1C1DF5FE2E15AF999C84D6CEBEB1A">>},
+ {<<"parse_trans">>, <<"5495A3309051DF7F510BC1FDABDA92DFF5417186A8F66D4419AAD6BA0AF5F0CB">>}]}
+].
