@@ -1866,9 +1866,26 @@ f(Format, Args) ->
 %% @end
 %%--------------------------------------------------------------------
 -spec rename(BeamBin0 :: binary(), Name :: atom()) -> BeamBin :: binary().
+-spec rename(BeamBin0 :: binary(), Name :: atom()) -> BeamBin :: binary().
 rename(BeamBin0, Name) ->
-    BeamBin = replace_in_atab(BeamBin0, Name),
-    update_form_size(BeamBin).
+    case beam_lib:chunks(BeamBin0, [abstract_code]) of
+        {ok, {_OrigMod, [{abstract_code, {raw_abstract_v1, Forms0}}]}} ->
+            Forms = replace_module_attr(Forms0, Name),
+            {ok, Name, BeamBin} = compile:forms(Forms, [binary]),
+            BeamBin;
+        _ ->
+            %% Fallback for modules compiled without debug_info: keep the
+            %% original byte-splicing approach unchanged.
+            BeamBin = replace_in_atab(BeamBin0, Name),
+            update_form_size(BeamBin)
+    end.
+
+replace_module_attr([{attribute, Line, module, _OldMod} | Rest], NewMod) ->
+    [{attribute, Line, module, NewMod} | Rest];
+replace_module_attr([Other | Rest], NewMod) ->
+    [Other | replace_module_attr(Rest, NewMod)];
+replace_module_attr([], _NewMod) ->
+    [].
 
 %% Replace the first atom of the atom table with the new name
 replace_in_atab(<<"Atom", CnkSz0:32, Cnk:CnkSz0/binary, Rest/binary>>, Name) ->
