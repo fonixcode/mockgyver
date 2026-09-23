@@ -1866,7 +1866,6 @@ f(Format, Args) ->
 %% @end
 %%--------------------------------------------------------------------
 -spec rename(BeamBin0 :: binary(), Name :: atom()) -> BeamBin :: binary().
--spec rename(BeamBin0 :: binary(), Name :: atom()) -> BeamBin :: binary().
 rename(BeamBin0, Name) ->
     case beam_lib:chunks(BeamBin0, [abstract_code]) of
         {ok, {_OrigMod, [{abstract_code, {raw_abstract_v1, Forms0}}]}} ->
